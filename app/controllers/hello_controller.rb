@@ -6,7 +6,7 @@ class HelloController < ApplicationController
 
     @variation_name = features.key?("hello-togglebot") ? features["hello-togglebot"]["variationName"] : "Default"
 
-    @speed = OFClient.fetch_string_value("togglebot-speed", "off",  context)
+    @speed = OFClient.fetch_string_value(flag_key: "togglebot-speed", default_value: "off", evaluation_context: context)
     case @speed
     when 'slow'
       @message = 'Awesome, look at you go!'
@@ -20,13 +20,13 @@ class HelloController < ApplicationController
       @message = 'Hello! Nice to meet you.'
     end
 
-    @wink = OFClient.fetch_boolean_value("togglebot-wink", false, context)
+    @wink = OFClient.fetch_boolean_value(flag_key: "togglebot-wink", default_value: false, evaluation_context: context)
     @togglebot_src = @wink ? 'togglebot-wink.png' : 'togglebot.png'
     if @speed == 'surprise'
       @togglebot_src = 'unicorn.svg'
     end
 
-    @step = OFClient.fetch_string_value("example-text", "default", context)
+    @step = OFClient.fetch_string_value(flag_key: "example-text", default_value: "default", evaluation_context: context)
 
     case @step 
     when 'step-1'

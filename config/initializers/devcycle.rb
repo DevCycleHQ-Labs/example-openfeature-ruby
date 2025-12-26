@@ -1,13 +1,11 @@
 require 'dotenv'
-require 'openfeature-sdk'
+require 'open_feature/sdk'
 Dotenv.load
 
-
-
-
-# Create a client
+# Create OpenFeature client
 OFClient = OpenFeature::SDK.build_client
 
+# Create DevCycle client with local bucketing (uses Wasmtime)
 DevCycleClient = DevCycle::Client.new(
   ENV['DEVCYCLE_SERVER_SDK_KEY'],
   DevCycle::Options.new,

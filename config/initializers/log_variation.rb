@@ -7,8 +7,8 @@ def log_variation (idx)
     features = DevCycleClient.all_features($dvc_service_user)
     variation_name = features.key?("hello-togglebot") ? features["hello-togglebot"]["variationName"] : "Default"
 
-    wink = OFClient.fetch_boolean_value("togglebot-wink", false, $service_user)
-    speed = OFClient.fetch_string_value("togglebot-speed", "off", $service_user)
+    wink = OFClient.fetch_boolean_value(flag_key: "togglebot-wink", default_value: false, evaluation_context: $service_user)
+    speed = OFClient.fetch_string_value(flag_key: "togglebot-speed", default_value: "off", evaluation_context: $service_user)
 
     spin_chars = speed == 'slow' ? ['◜', '◝', '◞', '◟'] : ['◜', '◠', '◝', '◞', '◡', '◟']
     spinner = speed == 'off' ? '○' : spin_chars[idx % spin_chars.length]
